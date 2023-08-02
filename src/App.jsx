@@ -17,7 +17,29 @@ function App() {
 
   return (
     <>
-     
+      <label>
+        Amount: <input name="myInput" />
+      </label>
+
+      <select name="from" id="">
+        <optgroup label="FROM"></optgroup>
+        {currency?.map((data, i) => (
+          <option value={data} key={i}>{data}</option>
+        ))}
+      </select>
+
+      <label>To:</label>
+
+      <select name="to" id="">
+        <optgroup label="TO"></optgroup>
+        {currency?.map((data, i) => (
+          <option value={data} key={i}>{data}</option>
+        ))}
+      </select>
+
+      <button>Convert</button>
+
+
     </>
   )
 }
