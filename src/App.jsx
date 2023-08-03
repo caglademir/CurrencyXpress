@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import SelectCurrency from './components/selectCurrency';
 
 
 
@@ -28,28 +29,27 @@ function App() {
         // console.log(rate)
   }
   let fixedRate = rate[selectTo];
+
+  const valueSelectFrom = (e) => {
+    setSelectFrom(e.target.value);
+  }
+
+  const valueSelectTo= (e) => {
+    setSelectTo(e.target.value);
+  }
   
   return (
     <>
-      <form>
+      
         <label>
           Amount: <input name="myInput" onChange={e => setInput(e.target.value)} />
         </label>
-        <select name="from" id="" onChange={e => setSelectFrom(e.target.value)}>
-          <optgroup label="FROM"></optgroup>
-          {currency?.map((data, i) => (
-            <option value={data} key={i}>{data}</option>
-          ))}
-        </select>
-        <label>To:</label>
-        <select name="to" id="" onChange={e => setSelectTo(e.target.value)}>
-          <optgroup label="TO"></optgroup>
-          {currency?.map((data, i) => (
-            <option value={data} key={i}>{data}</option>
-          ))}
-        </select>
+
+        <SelectCurrency label={"From:"} currency={currency} onChange={valueSelectFrom}/>
+        <SelectCurrency label={"To:"} currency={currency} onChange={valueSelectTo}/>
+
         <button type="button" onClick={sendRequest}>Convert</button>
-      </form>
+      
      <div>{fixedRate?.toFixed(2)}</div>
     </>
   )
