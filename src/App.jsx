@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import SelectCurrency from "./components/selectCurrency";
+import axios from "axios";
 
 function App() {
   let [currency, setCurrency] = useState(null);
-
+  
   useEffect(() => {
-    fetch("https://api.exchangerate.host/latest")
-      .then((res) => res.json())
-      .then((data) => setCurrency(Object.keys(data.rates)));
+    const url='https://api.exchangerate.host/latest';
+    axios.get(url)
+    .then((res) => {
+      setCurrency(Object.keys(res.data.rates));
+    })
+    // fetch("https://api.exchangerate.host/latest")
+    //   .then((res) => res.json())
+    //   .then((data) => setCurrency(Object.keys(data.rates)));
   }, []);
 
   const [input, setInput] = useState(null);
@@ -33,7 +39,7 @@ function App() {
     setSelectTo(e.target.value);
   };
 
-  console.log(selectTo);
+  //console.log(selectTo);
   return (
     <>
       <div className="flex justify-center items-center auto-rows-max  h-screen bg-stone-900 ">
@@ -78,6 +84,7 @@ function App() {
             >
               Convert
             </button>
+            
           </div>
           {fixedRate && (
             <div className="bg-stone-800 rounded-lg p-2 text-lg font-medium text-white flex justify-center">
