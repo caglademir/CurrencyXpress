@@ -4,28 +4,30 @@ import axios from "axios";
 
 function App() {
   let [currency, setCurrency] = useState(null);
+  const [loading, setLoading] = useState(false);
   
-  useEffect(() => {
+  useEffect(  () => {
     const url='https://api.exchangerate.host/latest';
-    axios.get(url)
+     axios.get(url)
     .then((res) => {
       setCurrency(Object.keys(res.data.rates));
-    })
-    // fetch("https://api.exchangerate.host/latest")
-    //   .then((res) => res.json())
-    //   .then((data) => setCurrency(Object.keys(data.rates)));
+    }
+    )
   }, []);
-
+  
   const [input, setInput] = useState(null);
   const [selectFrom, setSelectFrom] = useState(null);
   const [selectTo, setSelectTo] = useState(null);
   const [rate, setRate] = useState({});
-  const sendRequest = (e) => {
-    fetch(
+  const sendRequest = async(e) => {
+    setLoading(true);
+    await axios.get(
       `https://api.exchangerate.host/latest?BASE=${selectFrom}&symbols=${selectTo}&amount=${input}`
     )
-      .then((res) => res.json())
-      .then((data) => setRate(data.rates));
+      .then((result) => {
+        setRate(result.data.rates)});
+
+      setLoading(false);
     // .catch(err => console.log(err))
     // console.log(rate)
   };
@@ -82,7 +84,7 @@ function App() {
               className="bg-sky-500/100 border-solid border-2 border-sky-600 rounded-lg p-1 text-white  w-full"
               onClick={sendRequest}
             >
-              Convert
+              {loading ? <>Loading..</> : <>Search</>}
             </button>
             
           </div>
