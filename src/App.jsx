@@ -84,7 +84,7 @@ function App() {
               className="bg-sky-500/100 border-solid border-2 border-sky-600 rounded-lg p-1 text-white  w-full"
               onClick={sendRequest}
             >
-              {loading ? <>Loading..</> : <>Search</>}
+              {loading ? <>Loading..</> : <>Convert</>}
             </button>
             
           </div>
